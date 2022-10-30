@@ -1,5 +1,6 @@
+
 //input is yyyymmdd (20190101), output is yyyymmdd string (20190205)
-export function lunarToSolar(lunarDateString) {
+function lunarToSolarTest(lunarDateString) {
 
 
 
@@ -231,6 +232,7 @@ export function lunarToSolar(lunarDateString) {
   var td, y;
 
   y1 = lyear - 1841;
+  console.log({ y1 })
   m1 = lmonth - 1;
   leapyes = 0;
 
@@ -357,6 +359,17 @@ export function lunarToSolar(lunarDateString) {
   if (sday < 10) {
     sday = "0" + sday;
   }
+  console.log({ syear })
+  console.log({ smonth })
+  console.log({ sday })
   return syear + "" + smonth + "" + sday;
-
 }
+
+
+const solarDate = new Date()
+const solarYear = solarDate.getFullYear().toString()
+
+console.log(lunarToSolarTest("19940808"))
+console.log(lunarToSolarTest("19690905"))
+
+console.log(solarYear)
