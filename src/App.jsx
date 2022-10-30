@@ -44,7 +44,7 @@ const App = () => {
 
   };
   return (
-    <div className="formContainer flex-col justify-center items-center p-8 bg-gray-50">
+    <div className="formContainer flex-col justify-center items-center p-8">
       <div className="formWrapper">
         <span className="logo">타로 생일수 확인</span>
         <form onSubmit={handleSubmit}>
