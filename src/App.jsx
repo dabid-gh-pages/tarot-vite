@@ -3,6 +3,7 @@ import './App.scss'
 import { processtarot } from './utils/processtarot';
 import Result from './components/Result';
 import Loader from './components/Loader/index.jsx';
+import useScrollDirection from "./hooks/useScrollDirection.js"
 
 const App = () => {
   const [err, setErr] = useState(false);
@@ -10,6 +11,7 @@ const App = () => {
   const [userType, setUserType] = useState("solar")
   const [isResult, setIsResult] = useState(false);
   const [result, setResult] = useState("");
+  const scrollDirection = useScrollDirection();
 
   const handleChange = async (e) => {
     setUserType(e.target.value)
@@ -44,8 +46,8 @@ const App = () => {
 
   };
   return (
-    <div className="formContainer flex-col justify-center items-center p-8">
-      <div className="formWrapper">
+    <div className="formContainer flex-col justify-center items-center p-3">
+      <div className={`sticky ${scrollDirection === "down" ? "-top-60" : "top-0"} transition-all duration-500 formWrapper`}>
         <span className="logo">타로 생일수 확인</span>
         <form onSubmit={handleSubmit}>
           <div className='flex justify-between'>

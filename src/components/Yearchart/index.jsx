@@ -1,7 +1,7 @@
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Legend, Tooltip, LineElement, PointElement, LinearScale, Title, CategoryScale } from 'chart.js';
-import './yearchart.scss'
 
+import './yearchart.scss'
 import React from 'react';
 
 ChartJS.register(Tooltip, Legend, LineElement, PointElement, LinearScale, Title, CategoryScale);
@@ -204,13 +204,19 @@ const YearChart = ({ data }) => {
   }
 
   const options = {
+    // responsive: false,
     elements: {
       point: {
-        radius: 0.5, // 점 제거
+        radius: 1.5, // 점 제거
       },
     },
     scales: {
       x: {
+        ticks: {
+          font: {
+            size: 10
+          }
+        },
         grid: {
           display: false,
         },
@@ -222,26 +228,27 @@ const YearChart = ({ data }) => {
         },
       },
     },
-    legend: {
-      display: true,
-      labels: {
-        // legend options reference https://www.chartjs.org/docs/latest/configuration/legend.html#legend-label-configuration
-        boxWidth: 10,
-        boxHeight: 50000000, // fontSize에 비례함
-        fontSize: 11,
-        fontColor: '#263238',
-        generateLabels: function (chart) {
-          // Legend Item Interface - https://www.chartjs.org/docs/latest/configuration/legend.html#legend-item-interface
-          const labels = Chart.defaults.global.legend.labels.generateLabels(chart);
-          return labels.map(property => {
-            return { ...property, fillStyle: property.strokeStyle };
-          });
-        },
-      },
-      position: 'bottom', // label를 넣어주지 않으면 position이 먹히지 않음
-      // align: 'start',
-    },
+
     plugins: {
+
+
+      legend: {
+        display: true,
+        position: "bottom",
+        align: "center",
+        labels: {
+          padding: 10,
+          usePointStyle: true,
+          font: function (context) {
+            var width = context.chart.width;
+            var size = Math.round(width / 40);
+            return {
+              size: size,
+              weight: 400,
+            };
+          },
+        }
+      },
       title: {
         display: true,
         align: 'start',
@@ -250,16 +257,16 @@ const YearChart = ({ data }) => {
     }
   }
 
-  const pligins = [
-    {
-      beforeInit: function (chart) {
-        chart.legend.afterFit = function () {
-          chart.legend.options.labels.padding = 10;
-          // chart.height += 30;
-        };
-      },
-    },
-  ];
+  // const pligins = [
+  //   {
+  //     beforeInit: function (chart) {
+  //       chart.legend.afterFit = function () {
+  //         chart.legend.options.labels.padding = 10;
+  //         // chart.height += 30;
+  //       };
+  //     },
+  //   },
+  // ];
 
   const graphData = {
     labels: propData.map(item => item.targetYear),
@@ -270,6 +277,7 @@ const YearChart = ({ data }) => {
         borderColor: "#DCD3CB",
         backgroundColor: "#DCD3CB",
         borderWidth: 1.5,
+        pointHitRadius: 20,
 
       },
       {
@@ -278,6 +286,7 @@ const YearChart = ({ data }) => {
         borderColor: "#D2DBE1",
         backgroundColor: "#D2DBE1",
         borderWidth: 1.5,
+        pointHitRadius: 20,
 
       },
       {
@@ -287,6 +296,7 @@ const YearChart = ({ data }) => {
         borderColor: "#FF99A3",
         backgroundColor: "#FF99A3",
         borderWidth: 1.5,
+        pointHitRadius: 20,
 
 
 
@@ -295,10 +305,10 @@ const YearChart = ({ data }) => {
   };
 
   return (
-    <div className='mainWrapper'>
-      <Line data={graphData} options={options} plugins={pligins} />
+    <div className='mainWrapper' >
+      <Line data={graphData} options={options} />
 
-    </div>
+    </div >
   );
 };
 
